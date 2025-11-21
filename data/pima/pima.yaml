@@ -1,0 +1,17 @@
+dataset_id: pima_diabetes
+role: 'diabetes researcher'
+name: Pima Indians Diabetes Database
+task_type: 'binary_classification'
+target_description: 'predict whether a female patient of Pima Indian heritage has diabetes'
+target_mapping: {0: no_diabetes, 1: diabetes}
+attribute_glossary:
+  Pregnancies: 'number of times the patient has been pregnant'
+  Glucose: 'plasma glucose concentration measured 2 hours into an oral glucose tolerance test (mg/dL)'
+  BloodPressure: 'diastolic blood pressure (mm Hg)'
+  SkinThickness: 'triceps skin fold thickness (mm)'
+  Insulin: '2-hour serum insulin level (mu U/ml)'
+  BMI: 'body mass index, defined as weight in kg divided by height in m squared'
+  DiabetesPedigreeFunction: 'a function that scores likelihood of diabetes based on family history'
+  Age: 'age of the patient in years'
+  class: 'outcome variable, 1 indicates diabetes, 0 indicates no diabetes'
+class_priors: {0: 0.65, 1: 0.35}

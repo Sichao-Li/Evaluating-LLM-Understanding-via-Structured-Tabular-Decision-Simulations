@@ -1,0 +1,19 @@
+dataset_id: compas_recidivism
+role: 'criminal-justice risk-assessment analyst'
+name: 'COMPAS Recidivism (2-Year)'
+task_type: 'binary_classification'
+target_description: 'predicting whether a defendant will be rearrested within two years of release'
+target_mapping: {0: 'no recidivism', 1: 'recidivism'}
+attribute_glossary:
+  age: 'Numerical age of the defendant at the time of screening'
+  c_charge_degree: 'Degree of the current charge {0: F (Felony), 1: M (Misdemeanor)}'
+  race: 'Race of the defendant {0: African-American, 1: Asian, 2: Caucasian, 3: Hispanic, 4: Native American, 5: Other}'
+  age_cat: 'Age group category {0: 25 - 45, 1: Greater than 45, 2: Less than 25}'
+  score_text: 'Risk score category assigned by COMPAS {0: High, 1: Low, 2: Medium}'
+  sex: 'Sex of the defendant {0: Female, 1: Male}'
+  priors_count: 'Number of prior criminal offenses on record'
+  days_b_screening_arrest: 'Days between screening date and arrest date (negative means screening happened before arrest)'
+  decile_score: 'COMPAS risk score decile (1 = lowest risk, 10 = highest risk)'
+  length_of_stay: 'Number of days the defendant was jailed for the current offense, computed as the difference between jail in and out dates'
+  class: 'Target variable indicating recidivism {0: no recidivism, 1: recidivism}'
+class_priors: {0: 0.55, 1: 0.45}

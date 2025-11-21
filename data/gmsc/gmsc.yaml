@@ -1,0 +1,19 @@
+dataset_id: gmsc
+role: 'consumer credit risk analyst'
+name: 'Give Me Some Credit'
+task_type: 'binary_classification'
+target_description: 'predict whether a person will experience serious financial distress (90+ days delinquency) within two years'
+target_mapping: {0: no distress, 1: distress}
+attribute_glossary:
+  RevolvingUtilizationOfUnsecuredLines: 'total balance on credit cards and personal lines of credit (excluding real estate), as a percentage of credit limit'
+  age: 'age of the borrower in years'
+  NumberOfTime30-59DaysPastDueNotWorse: 'number of times borrower was 30-59 days past due in last 2 years (not worse)'
+  DebtRatio: 'monthly debt payments, alimony, living costs divided by gross monthly income'
+  MonthlyIncome: 'monthly income in USD'
+  NumberOfOpenCreditLinesAndLoans: 'number of open loans (e.g. mortgage, car) and lines of credit (e.g. credit cards)'
+  NumberOfTimes90DaysLate: 'number of times borrower was 90+ days overdue'
+  NumberRealEstateLoansOrLines: 'number of mortgage and real estate loans including home equity lines of credit'
+  NumberOfTime60-89DaysPastDueNotWorse: 'number of times borrower was 60-89 days past due in last 2 years (not worse)'
+  NumberOfDependents: 'number of dependents (excluding the borrower themselves)'
+  class: 'whether the individual experienced 90+ days past due delinquency in the next two years {0:no, 1:yes}'
+class_priors: {0: 0.95, 1: 0.05}

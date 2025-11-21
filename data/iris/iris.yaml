@@ -1,0 +1,13 @@
+dataset_id: iris
+role: 'botanist'
+name: 'iris'
+task_type: 'multi_classification'
+target_description: 'identifying the species of an iris plant from sepal and petal measurements'
+target_mapping: {0: setosa, 1: versicolour, 2: virginica}
+attribute_glossary:
+  sepal_length: 'sepal length in centimeters'
+  sepal_width: 'sepal width in centimeters'
+  petal_length: 'petal length in centimeters'
+  petal_width: 'petal width in centimeters'
+  class: 'species of iris plant {0: setosa, 1: versicolour, 2: virginica}'
+class_priors: {setosa: 0.333, versicolour: 0.333, virginica: 0.333}

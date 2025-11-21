@@ -1,0 +1,15 @@
+dataset_id: car_evaluation
+role: 'automotive quality-assessment specialist'
+name: 'Car Evaluation'
+task_type: 'multi_classification'
+target_description: 'Predicting the overall acceptability of a car based on its characteristics'
+target_mapping: {0: acc, 1: good, 2: unacc, 3: vgood}
+attribute_glossary:   
+  buying: 'Buying price of the car {0: vhigh, 1: high, 2: med, 3: low}'
+  maint: 'Maintenance cost of the car {0: vhigh, 1: high, 2: med, 3: low}'
+  doors: 'Number of doors in the car {0: 2, 1: 3, 2: 4, 3: 5more}'
+  persons-size: 'Seating capacity of the car {0: 2, 1: 4, 2: more}'
+  inv-lug_boot: 'Size of the luggage boot {0: small, 1: med, 2: big}'
+  safety: 'Estimated safety of the car {0: low, 1: med, 2: high}'
+  class: 'Overall acceptability of the car {0: acc, 1: good, 2: unacc, 3: vgood}'
+class_priors: {0: 0.22, 1: 0.04, 2: 0.70, 3: 0.04}

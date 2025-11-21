@@ -1,0 +1,20 @@
+dataset_id: breast_cancer
+role: 'clinical oncologist'
+name: 'Breast Cancer'
+task_type: 'binary_classification'
+target_description: 'predicting whether a breast cancer patient will experience recurrence or not'
+target_mapping: {0: no-recurrence-events, 1: recurrence-events}
+input_type: 'numeric'
+attribute_glossary:
+  age: 'Age group of the patient {0: 10-19, 1: 20-29, 2: 30-39, 3: 40-49, 4: 50-59, 5: 60-69, 6: 70-79, 7: 80-89, 8: 90-99}'
+  menopause: 'Menopausal status of the patient {0: lt40, 1: ge40, 2: premeno}'
+  tumor-size: 'Tumor size grouped in mm intervals {0: 0-4, 1: 5-9, 2: 10-14, 3: 15-19, 4: 20-24, 5: 25-29, 6: 30-34, 7: 35-39, 8: 40-44, 9: 45-49, 10: 50-54, 11: 55-59}'
+  inv-nodes: 'Number of positive axillary lymph nodes grouped {0: 0-2, 1: 3-5, 2: 6-8, 3: 9-11, 4: 12-14, 5: 15-17, 6: 18-20, 7: 21-23, 8: 24-26, 9: 27-29, 10: 30-32, 11: 33-35, 12: 36-39}'
+  node-caps: 'Presence of capsular invasion {0: no, 1: yes}'
+  deg-malig: 'Degree of malignancy {0: 1, 1: 2, 2: 3}'
+  breast: 'Side of the breast affected {0: left, 1: right}'
+  breast-quad: 'Location of tumor within the breast quadrant {0: central, 1: left-low, 2: left-up, 3: right-low, 4: right-up}'
+  irradiat: 'Whether the patient received radiation therapy {0: no, 1: yes}'
+  class: 'recurrence events, 1 indicates recurrence, 0 indicates no recurrence'
+class_priors: {0: 0.71, 1: 0.29}
+missing_values: 'none'

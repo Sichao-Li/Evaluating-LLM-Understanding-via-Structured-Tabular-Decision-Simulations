@@ -1,0 +1,15 @@
+dataset_id: monk1
+role: 'data scientist'
+name: 'MONK-1'
+task_type: 'binary_classification'
+target_description: 'does the instance satisfy (a1 = a2) OR (a5 = 1)?'
+target_mapping: {0: False, 1: True}
+attribute_glossary:
+  a1: 'first symbolic attribute'
+  a2: 'second symbolic attribute'
+  a3: 'third symbolic attribute'
+  a4: 'fourth symbolic attribute'
+  a5: 'fifth symbolic attribute'
+  a6: 'sixth symbolic attribute'
+  class: 'target, 1 indicates True, 0 indicates False'
+class_priors: {0: 0.5, 1: 0.5}

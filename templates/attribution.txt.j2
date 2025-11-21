@@ -1,0 +1,25 @@
+**Dataset**: **{{ name }}** 
+**Role**: You are a **{{ role }}**  
+**Task**: Your task is to perform **{{ task_type }}** — {{ target_description }}.  
+**Target Encoding**: {{ target_mapping }}  
+
+**Attribute Glossary**:  
+{% for k, v in attribute_glossary.items() %}
+• **{{ k }}** → {{ v }}
+{% endfor %}
+
+**Class Priors**:  
+{% for k, v in class_priors.items() %}
+• **{{ k }}** → {{ v }}
+{% endfor %}
+
+**Your Job**  
+- Return a **single comma-separated list** of the most important feature names (attributes) that influence the target variable according to your general understanding of the dataset.  
+- Only include **original feature names** as listed in the Attribute Glossary.  
+- Do **not** include reasoning, explanations, or duplicate features.  
+- The number of features should be appropriate for your global understanding of the task.
+
+**Important:**  
+- Do NOT include any code, code blocks, or explanations of code.  
+- Do NOT use or mention sklearn, pandas, or any tool.  
+- Only return the list of features, separated by commas.

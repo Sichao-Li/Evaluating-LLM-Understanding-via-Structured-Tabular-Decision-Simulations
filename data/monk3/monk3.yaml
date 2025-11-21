@@ -1,0 +1,15 @@
+dataset_id: monk3
+role: 'data scientist'
+name: 'MONK-3'
+task_type: 'binary_classification'
+target_description: 'does the instance satisfy (a5 = 3 and a4 = 1) OR (a5 ≠ 4 and a2 ≠ 3)? (training set has 5 % label noise)'
+target_mapping: {0: False, 1: True}
+attribute_glossary:
+  a1: 'first symbolic attribute'
+  a2: 'second symbolic attribute'
+  a3: 'third symbolic attribute'
+  a4: 'fourth symbolic attribute'
+  a5: 'fifth symbolic attribute'
+  a6: 'sixth symbolic attribute'
+  class: 'target, 1 indicates True, 0 indicates False'
+class_priors: {0: 0.47, 1: 0.53}

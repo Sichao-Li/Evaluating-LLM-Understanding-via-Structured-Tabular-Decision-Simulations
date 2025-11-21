@@ -1,0 +1,28 @@
+**Dataset**: **{{ name }}** 
+**Role**: You are a **{{ role }}**  
+**Task**: Your task is to perform **{{ task_type }}** — {{ target_description }}.  
+**Target Encoding**: {{ target_mapping }}  
+
+**Attribute Glossary:**  
+{% for k, v in attribute_glossary.items() %}
+• **{{ k }}** → {{ v }}
+{% endfor %}
+
+**Class Priors:**  
+{% for k, v in class_priors.items() %}
+• **{{ k }}** → {{ v }}
+{% endfor %}
+
+**Your Job:**  
+- For every row where 'class=?', predict its integer‐encoded target {% if few_shot %} using the provided labeled examples {% else %} relying solely on your pre-trained knowledge{% endif %}.
+- Predict one integer per row, in the exact same order as the rows appear.
+- The number of predictions must equal the number of rows with 'class=?'.
+- Return a python list of all predictions.
+{% if explain %}
+    - For each prediction, provide a one-sentence rationale, but still do NOT write or output any code.
+{% endif %}
+
+**Important:**  
+- Do NOT include any code, code blocks, or explanations of code in your answer.  
+- Do NOT use or mention sklearn, pandas, or any code-based methods.  
+- DO NOT output text as target labels, only output the integer-encoded target.

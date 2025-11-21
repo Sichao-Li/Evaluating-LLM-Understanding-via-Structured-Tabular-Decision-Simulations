@@ -1,0 +1,25 @@
+dataset_id: heart_disease_framingham
+role: 'cardiovascular epidemiology analyst'
+name: 'Framingham Heart Study'
+task_type: 'binary_classification'
+target_description: 'predicting whether a patient will develop coronary heart disease (CHD) within 10 years'
+target_mapping: {0: No, 1: Yes}
+attribute_glossary:
+  male: 'sex of the patient {1:male, 0:female}'
+  age: 'age of the patient in years'
+  education: 'educational level {categorical encoded as float}'
+  currentSmoker: 'whether the patient is a current smoker {1:yes, 0:no}'
+  cigsPerDay: 'average number of cigarettes smoked per day'
+  BPMeds: 'whether patient is on blood pressure medication {1:yes, 0:no}'
+  prevalentStroke: 'whether patient had a previous stroke {1:yes, 0:no}'
+  prevalentHyp: 'whether patient has hypertension {1:yes, 0:no}'
+  diabetes: 'whether patient has diabetes {1:yes, 0:no}'
+  totChol: 'total cholesterol level in mg/dL'
+  sysBP: 'systolic blood pressure in mmHg'
+  diaBP: 'diastolic blood pressure in mmHg'
+  BMI: 'Body Mass Index'
+  heartRate: 'heart rate in beats per minute'
+  glucose: 'glucose level in mg/dL'
+  class: 'TenYearCHD: whether the patient will develop CHD within 10 years {1:yes, 0:no}'
+class_priors: {0: 0.85, 1: 0.15}
+

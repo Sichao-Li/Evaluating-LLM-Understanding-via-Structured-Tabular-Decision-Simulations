@@ -1,0 +1,25 @@
+dataset_id: congression
+role: 'legislative political scientist'
+name: 'Congressional Voting Records'
+task_type: 'binary_classification'
+target_description: 'predicting the political affiliation of U.S. House members based on key legislative votes'
+target_mapping: {0: democrat, 1: republican}
+attribute_glossary: 
+  handicapped-infants: 'vote on rights for handicapped infants'
+  water-project-cost-sharing: 'vote on federal water project cost sharing'
+  adoption-of-the-budget-resolution: 'vote on budget resolution adoption'
+  physician-fee-freeze: 'vote on freezing physician fees'
+  el-salvador-aid: 'vote on military aid to El Salvador'
+  religious-groups-in-schools: 'vote on religious groups meeting in schools'
+  anti-satellite-test-ban: 'vote on anti-satellite weapons ban'
+  aid-to-nicaraguan-contras: 'vote on aid to Nicaraguan contras'
+  mx-missile: 'vote on MX missile funding'
+  immigration: 'vote on immigration policy'
+  synfuels-corporation-cutback: 'vote on cutting synthetic fuels corp.'
+  education-spending: 'vote on education spending cuts'
+  superfund-right-to-sue: 'vote on citizens’ right to sue under Superfund'
+  crime: 'vote on crime legislation'
+  duty-free-exports: 'vote on duty-free exports'
+  export-administration-act-south-africa: 'vote on South Africa sanctions act'
+  class: 'democrat or republican affiliation of the House member'
+class_priors: {democrat: 0.45, republican: 0.55}
