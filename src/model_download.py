@@ -5,8 +5,8 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 
 MODELS = [
-    "unsloth/Meta-Llama-3.1-8B-Instruct",
-    "unsloth/Llama-3.2-3B",
+    "meta-llama/Meta-Llama-3.1-8B-Instruct",
+    "meta-llama/Llama-3.2-3B",
     "mistralai/Mistral-7B-Instruct-v0.3",
     "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
     "Qwen/Qwen3-8B",
