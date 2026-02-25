@@ -53,6 +53,64 @@ def drop_attributes(df: pd.DataFrame, attrs: List[Union[str, int]]) -> pd.DataFr
             
     return df.drop(columns=col_names)
 
+
+def replace_attributes(df: pd.DataFrame, attrs: List[Union[str, int]], method : str = "constant") -> pd.DataFrame:
+    """
+    Replace columns by name or index. Used for baseline comparison.
+    method : str
+        One of {"constant","mean","sample_marginal","permutation"}.
+    """
+    if not attrs:
+        return df.copy()
+
+    out = df.copy()
+
+    col_names: List[str] = []
+    for attr in attrs:
+        if isinstance(attr, int):
+            if attr < 0 or attr >= len(out.columns):
+                raise IndexError(f"Column index {attr} is out of bounds.")
+            col_names.append(out.columns[attr])
+        elif isinstance(attr, str):
+            if attr not in out.columns:
+                print(f"Warning: Attribute '{attr}' not found in DataFrame to replace.")
+                continue
+            col_names.append(attr)
+        else:
+            raise TypeError(f"Attribute spec must be str or int, got {type(attr)}")
+
+    if not col_names:
+        return out
+
+    method = method.lower().strip()
+    allowed = {"constant", "mean", "sample_marginal", "permutation"}
+    if method not in allowed:
+        raise ValueError(f"Unknown method '{method}'. Choose from {sorted(allowed)}.")
+
+    n = len(out)
+
+    for c in col_names:
+        if method == "constant":
+            out[c] = ""  # default ""
+
+        elif method == "mean":
+            out[c] = out[c].mean()
+
+        elif method == "sample_marginal":
+            pool = out[c].dropna()
+            if len(pool) == 0:
+                out[c] = np.nan
+            else:
+                out[c] = np.random.choice(pool.to_numpy(), size=n, replace=True)
+
+        elif method == "permutation":
+            out[c] = np.random.permutation(out[c].to_numpy())
+
+    return out
+
+
+
+
 def format_row_as_text(row: pd.Series) -> str:
     """Converts a pandas row to 'col1=val1, col2=val2' format."""
     return ", ".join([f"{col}={val}" for col, val in row.items()])

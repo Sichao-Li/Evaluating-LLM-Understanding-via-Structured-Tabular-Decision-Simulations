@@ -158,7 +158,7 @@ class GoogleGemini(LLM):
             raise ImportError("Google GenAI library not installed. pip install google-genai")
         
         self.client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-
+        
     def generate(self, prompt: str, system_prompt: Optional[str] = None, **kwargs) -> str:        
         config = types.GenerateContentConfig(
             temperature=kwargs.get("temperature", 0.2),

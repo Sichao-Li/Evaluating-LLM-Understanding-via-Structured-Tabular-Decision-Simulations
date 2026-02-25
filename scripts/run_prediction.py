@@ -1,3 +1,9 @@
+import sys
+from pathlib import Path
+
+project_root = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(project_root))
+
 import argparse
 import os
 import json
@@ -11,7 +17,8 @@ from src.data_loader import (
     load_and_clean_data, 
     stratified_sample, 
     prepare_prediction_context, 
-    drop_attributes
+    drop_attributes, 
+    replace_attributes
     )
 from src.prompt import PromptEngine
 from src.parser import OutputParser
@@ -28,6 +35,7 @@ def get_model(model_id: str, quantization: str = None):
     else:
         return HuggingFaceLLM(model_id, quantization=quantization)
 
+
 def run_single_experiment(
     model, 
     prompt_engine, 
@@ -35,7 +43,11 @@ def run_single_experiment(
     df_train, 
     df_test, 
     drop_cols=None, 
-    few_shot=False
+    few_shot=False,
+
+    # optional
+    replace_cols=None, # columns to ablate
+    replace_method=None, # constant|mean|sample_marginal|permutation
 ):
     """
     Runs one prediction pass.
@@ -44,6 +56,9 @@ def run_single_experiment(
     # 1. Apply Attribute Dropping (if any)
     current_train = drop_attributes(df_train.copy(), drop_cols or [])
     current_test = drop_attributes(df_test.copy(), drop_cols or [])
+
+    current_train = replace_attributes(current_train.copy(), replace_cols or [], replace_method or None)
+    current_test = replace_attributes(current_test.copy(), replace_cols or [], replace_method or None)
     
     # Combine for context generation (Train + Test)
     current_train["dataset"] = "train"
@@ -103,7 +118,9 @@ def main():
     # Experiment Settings
     parser.add_argument("--dataset", type=str, required=True, help="Dataset ID (e.g., iris)")
     parser.add_argument("--model", type=str, required=True, help="Model ID (e.g., meta-llama/Llama-3.1-8B)")
-    parser.add_argument("--task", type=str, choices=["standard", "lao"], default="standard", help="Task type")
+    parser.add_argument("--task", type=str, choices=["standard", "lao", "ablation"], default="standard", help="Task type")
+    parser.add_argument("--ablation_method", type=str, choices=["constant", "mean", "sample_marginal", "permutation"], default=None, help="Ablation type")
+
     parser.add_argument("--few_shot", action="store_true", help="Providing demonstrations")
     parser.add_argument("--sample_rows", type=int, default=100, help="Max rows to process (stratified sample)")
     
@@ -144,16 +161,22 @@ def main():
     experiments = []
     
     if args.task == "standard":
-        experiments.append({"drop": None, "name": "standard"})
-        
+        experiments.append({"drop": None, "replace": None, "name": "standard"})
+            
     elif args.task == "lao":
         # Leave-Attribute-Out: Iterate over all columns except 'class'
         feature_cols = [c for c in train_df.columns if c != "class"]
         # Add baseline (no drop)
-        experiments.append({"drop": None, "name": "baseline"})
+        experiments.append({"drop": None, "replace": None, "name": "baseline"})
         # Add drop experiments
         for col in feature_cols:
             experiments.append({"drop": [col], "name": f"drop_{col}"})
+
+    elif args.task == "ablation":
+        experiments.append({"drop": None, "replace": None, "name": "standard"})
+        feature_cols = [c for c in train_df.columns if c != "class"]
+        for col in feature_cols:
+            experiments.append({"drop": None, "replace": [col], "name": f"replace_{col}"})
 
     # --- 4. Execution Loop ---
     results_dir = Path(args.output_dir) / args.dataset / args.model.replace("/", "_")
@@ -165,15 +188,16 @@ def main():
 
     for exp in tqdm(experiments):
         print(f"\nRunning: {exp['name']}")
-        
         result_data = run_single_experiment(
-            model=None,
+            model=model,
             prompt_engine=prompt_engine,
             dataset_name=args.dataset,
             df_train=train_df,
             df_test=test_df,
-            drop_cols=exp["drop"],
-            few_shot=args.few_shot
+            drop_cols=exp.get("drop"),
+            few_shot=args.few_shot,
+            replace_cols=exp.get("replace"),
+            replace_method=args.ablation_method
         )
         
         # Optional: Parse immediately
@@ -195,7 +219,14 @@ def main():
         combined_results.append({**exp, **result_data})
 
     # --- 5. Save Final Consolidated JSON ---
-    output_file = results_dir / f"{args.task}_results.json"
+    # output_file = results_dir / f"{args.task}_results.json"
+    if args.task == "ablation" and args.ablation_method:
+        output_file = results_dir / f"{args.task}_{args.ablation_method}_results.json"
+    else:
+        output_file = results_dir / f"{args.task}_results.json"
+
+    with open(output_file, "w") as f:
+        json.dump(combined_results, f, indent=2, default=str)
     with open(output_file, "w") as f:
         json.dump(combined_results, f, indent=2, default=str)
     
