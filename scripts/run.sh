@@ -1,21 +1,34 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DATASET="breast"
-MODEL="Qwen/Qwen3-8B"
-TASK="ablation"
+MODEL="google/medgemma-27b-text-it"
 OUTPUT_DIR="results_test"
 
+DATASETS=("heart" "pima")
+TASKS=("standard" "lao")
 METHODS=("constant" "mean" "sample_marginal" "permutation")
 
-for method in "${METHODS[@]}"; do
-  echo "Running ablation_method=${method} ..."
-  CUDA_VISIBLE_DEVICES=0 python scripts/run_prediction.py \
-    --dataset "${DATASET}" \
-    --model "${MODEL}" \
-    --task "${TASK}" \
-    --output_dir "${OUTPUT_DIR}" \
-    --ablation_method "${method}"
+for dataset in "${DATASETS[@]}"; do
+  for task in "${TASKS[@]}"; do
+    if [[ "${task}" == "ablation" ]]; then
+      for method in "${METHODS[@]}"; do
+        echo "Running dataset=${dataset}, task=${task}, ablation_method=${method} ..."
+        CUDA_VISIBLE_DEVICES=6 python scripts/run_prediction.py \
+          --dataset "${dataset}" \
+          --model "${MODEL}" \
+          --task "${task}" \
+          --output_dir "${OUTPUT_DIR}" \
+          --ablation_method "${method}"
+      done
+    else
+      echo "Running dataset=${dataset}, task=${task} ..."
+      CUDA_VISIBLE_DEVICES=6 \
+       python scripts/run_prediction.py \
+        --dataset "${dataset}" \
+        --model "${MODEL}" \
+        --task "${task}" \
+        --output_dir "${OUTPUT_DIR}"
+    fi
+  done
 done
 
-echo "All runs completed."

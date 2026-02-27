@@ -75,7 +75,8 @@ class HuggingFaceLLM(LLM):
             device_map=device,
             torch_dtype=dtype,
             token=os.getenv("HF_TOKEN"),
-            trust_remote_code=True
+            low_cpu_mem_usage=True,
+            trust_remote_code=True  
         )
 
     def generate(self, prompt: str, system_prompt: Optional[str] = None, **kwargs) -> str:
