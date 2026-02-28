@@ -1,0 +1,23 @@
+{
+  "dataset": "breast",
+  "model": "google/medgemma-4b-it",
+  "input_table_snippet": "Row 1: age=2, menopause=2, tumor-size=6, inv-nodes=0, node-caps=1, deg-malig=2, breast=1, breast-quad=2, irradiat=1, class=0\nRow 2: age=3, menopause=0, tumor-size=0, inv-nodes=0, node-caps=0, deg-malig=0, breast=1, breast-quad=0, irradiat=0, class=0\nRow 3: age=1, menopause=2, tumor-size=4, inv-nodes=0, node-caps=0, deg-malig=0, breast=0, breast-quad=0, irradiat=0, class=0\nRow 4: age=2, menopause=2, tumor-size=1, inv-nodes=0, node-caps=0, deg-malig=1, breast=0, breast-quad=1, irradiat=0, class=0\n",
+  "runs": [
+    {
+      "style_id": 1,
+      "question": "Based on your global understanding of the dataset and the prediction problem, please rank all input features (attributes) in descending order of importance for predicting the target variable (class). Return your answer as EXACTLY one line in the following format:\nfeature1, feature2, feature3, ...\nRules: Do NOT include the feature 'class'. Do NOT include numbering, bullets, or explanations. Use ONLY the valid dataset feature names. Output nothing else.",
+      "raw_output": "inv-nodes, tumor-size, age, node-caps, deg-malig, menopausal status, breast, breast-quad, irradiat",
+      "ranked_features": [
+        "inv-nodes",
+        "tumor-size",
+        "age",
+        "node-caps",
+        "deg-malig",
+        "menopausal status",
+        "breast",
+        "breast-quad",
+        "irradiat"
+      ]
+    }
+  ]
+}

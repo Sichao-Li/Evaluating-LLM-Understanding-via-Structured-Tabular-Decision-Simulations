@@ -1,0 +1,22 @@
+{
+  "dataset": "pima",
+  "model": "google/medgemma-4b-it",
+  "input_table_snippet": "Row 1: Pregnancies=8.0, Glucose=126.0, BloodPressure=88.0, SkinThickness=36.0, Insulin=108.0, BMI=38.5, DiabetesPedigreeFunction=0.349, Age=49.0, class=0.0\nRow 2: Pregnancies=3.0, Glucose=116.0, BloodPressure=74.0, SkinThickness=15.0, Insulin=105.0, BMI=26.3, DiabetesPedigreeFunction=0.107, Age=24.0, class=0.0\nRow 3: Pregnancies=0.0, Glucose=106.0, BloodPressure=70.0, SkinThickness=37.0, Insulin=148.0, BMI=39.4, DiabetesPedigreeFunction=0.605, Age=22.0, class=0.0\nRow 4: Pregnancies=9.0, Glucose=",
+  "runs": [
+    {
+      "style_id": 1,
+      "question": "Based on your global understanding of the dataset and the prediction problem, please rank all input features (attributes) in descending order of importance for predicting the target variable (class). Return your answer as EXACTLY one line in the following format:\nfeature1, feature2, feature3, ...\nRules: Do NOT include the feature 'class'. Do NOT include numbering, bullets, or explanations. Use ONLY the valid dataset feature names. Output nothing else.",
+      "raw_output": "Glucose, Insulin, Pregnancies, Age, BMI, SkinThickness, BloodPressure, DiabetesPedigreeFunction",
+      "ranked_features": [
+        "Glucose",
+        "Insulin",
+        "Pregnancies",
+        "Age",
+        "BMI",
+        "SkinThickness",
+        "BloodPressure",
+        "DiabetesPedigreeFunction"
+      ]
+    }
+  ]
+}

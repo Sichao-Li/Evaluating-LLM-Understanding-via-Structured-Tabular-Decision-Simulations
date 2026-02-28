@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-MODEL="google/medgemma-27b-text-it"
+MODEL="google/medgemma-4b-it"
 OUTPUT_DIR="results_test"
 
-DATASETS=("heart" "pima")
+DATASETS=("heart")
 TASKS=("standard" "lao")
 METHODS=("constant" "mean" "sample_marginal" "permutation")
 

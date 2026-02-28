@@ -1,0 +1,28 @@
+{
+  "dataset": "heart",
+  "model": "google/medgemma-4b-it",
+  "input_table_snippet": "Row 1: male=1.0, age=48.0, education=3.0, currentSmoker=0.0, cigsPerDay=0.0, BPMeds=0.0, prevalentStroke=0.0, prevalentHyp=0.0, diabetes=0.0, totChol=235.0, sysBP=150.5, diaBP=98.0, BMI=32.4, heartRate=75.0, glucose=92.0, class=0.0\nRow 2: male=0.0, age=53.0, education=1.0, currentSmoker=1.0, cigsPerDay=9.0, BPMeds=0.0, prevalentStroke=0.0, prevalentHyp=0.0, diabetes=0.0, totChol=309.0, sysBP=130.0, diaBP=86.0, BMI=22.37, heartRate=82.0, glucose=80.0, class=0.0\nRow 3: male=0.0, age=64.0, educatio",
+  "runs": [
+    {
+      "style_id": 1,
+      "question": "Based on your global understanding of the dataset and the prediction problem, please rank all input features (attributes) in descending order of importance for predicting the target variable (class). Return your answer as EXACTLY one line in the following format:\nfeature1, feature2, feature3, ...\nRules: Do NOT include the feature 'class'. Do NOT include numbering, bullets, or explanations. Use ONLY the valid dataset feature names. Output nothing else.",
+      "raw_output": "totChol, sysBP, diaBP, age, male, currentSmoker, prevalentHyp, BMI, education, cigsPerDay, BPMeds, glucose, heartRate, prevalentStroke",
+      "ranked_features": [
+        "totChol",
+        "sysBP",
+        "diaBP",
+        "age",
+        "male",
+        "currentSmoker",
+        "prevalentHyp",
+        "BMI",
+        "education",
+        "cigsPerDay",
+        "BPMeds",
+        "glucose",
+        "heartRate",
+        "prevalentStroke"
+      ]
+    }
+  ]
+}

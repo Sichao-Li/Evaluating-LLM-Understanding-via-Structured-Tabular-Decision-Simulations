@@ -32,7 +32,7 @@ def main():
     parser.add_argument("--dataset", type=str, required=True)
     parser.add_argument("--model", type=str, required=True)
     parser.add_argument("--sample_rows", type=int, default=100)
-    parser.add_argument("--quantization", type=str, default="8bit")
+    parser.add_argument("--quantization", type=str, default="None")
     parser.add_argument("--output_dir", type=str, default="results/attribution")
     args = parser.parse_args()
 

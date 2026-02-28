@@ -122,10 +122,10 @@ def main():
     parser.add_argument("--ablation_method", type=str, choices=["constant", "mean", "sample_marginal", "permutation"], default=None, help="Ablation type")
 
     parser.add_argument("--few_shot", action="store_true", help="Providing demonstrations")
-    parser.add_argument("--sample_rows", type=int, default=100, help="Max rows to process (stratified sample)")
+    parser.add_argument("--sample_rows", type=int, default=10, help="Max rows to process (stratified sample)")
     
     # Model Settings
-    parser.add_argument("--quantization", type=str, choices=["4bit", "8bit"], default="4bit", help="HF Quantization")
+    parser.add_argument("--quantization", type=str, choices=["4bit", "8bit"], default=None, help="HF Quantization")
     parser.add_argument("--parse", action="store_true", help="Immediately parse output with LLM")
     
     # Output
