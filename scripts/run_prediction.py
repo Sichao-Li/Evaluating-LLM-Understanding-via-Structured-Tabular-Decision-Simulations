@@ -118,11 +118,12 @@ def main():
     # Experiment Settings
     parser.add_argument("--dataset", type=str, required=True, help="Dataset ID (e.g., iris)")
     parser.add_argument("--model", type=str, required=True, help="Model ID (e.g., meta-llama/Llama-3.1-8B)")
-    parser.add_argument("--task", type=str, choices=["standard", "lao", "ablation"], default="standard", help="Task type")
+    parser.add_argument("--task", type=str, choices=["standard", "lao", "ablation", "multicolumn_lao"], default="standard", help="Task type")
     parser.add_argument("--ablation_method", type=str, choices=["constant", "mean", "sample_marginal", "permutation"], default=None, help="Ablation type")
+    parser.add_argument("--drop_cols", nargs="+", default=None, help="Columns to drop for multicolumn_lao")
 
     parser.add_argument("--few_shot", action="store_true", help="Providing demonstrations")
-    parser.add_argument("--sample_rows", type=int, default=10, help="Max rows to process (stratified sample)")
+    parser.add_argument("--sample_rows", type=int, default=100, help="Max rows to process (stratified sample)")
     
     # Model Settings
     parser.add_argument("--quantization", type=str, choices=["4bit", "8bit"], default=None, help="HF Quantization")
@@ -171,6 +172,15 @@ def main():
         # Add drop experiments
         for col in feature_cols:
             experiments.append({"drop": [col], "name": f"drop_{col}"})
+    
+    elif args.task == "multicolumn_lao":
+        if not args.drop_cols:
+            raise ValueError("--drop_cols is required when --task multicolumn_lao")
+        experiments.append({
+            "drop": args.drop_cols,
+            "replace": None,
+            "name": "drop_" + "_".join(args.drop_cols)
+        })
 
     elif args.task == "ablation":
         experiments.append({"drop": None, "replace": None, "name": "standard"})
@@ -222,13 +232,15 @@ def main():
     # output_file = results_dir / f"{args.task}_results.json"
     if args.task == "ablation" and args.ablation_method:
         output_file = results_dir / f"{args.task}_{args.ablation_method}_results.json"
+    elif args.task == "multicolumn_lao" and args.drop_cols:
+        output_file = results_dir / f"{args.task}_{'_'.join(args.drop_cols)}_results.json"
     else:
         output_file = results_dir / f"{args.task}_results.json"
 
     with open(output_file, "w") as f:
         json.dump(combined_results, f, indent=2, default=str)
-    with open(output_file, "w") as f:
-        json.dump(combined_results, f, indent=2, default=str)
+    # with open(output_file, "w") as f:
+    #     json.dump(combined_results, f, indent=2, default=str)
     
     print(f"Saved all results to {output_file}")
 
